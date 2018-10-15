@@ -183,7 +183,8 @@ class DateTimeWidget(Widget):
         if not value:
             return None
         if isinstance(value, datetime):
-            value = timezone.make_aware(value, timezone.get_default_timezone())
+            if settings.USE_TZ:
+                value = timezone.make_aware(value, timezone.get_default_timezone())
             return value
         for format in self.formats:
             try:
